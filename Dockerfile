@@ -1,10 +1,12 @@
 # Build
-FROM golang:1 as build
+FROM golang:1 AS build
 
 WORKDIR /go/src/github.com/gmauleon/alertmanager-zabbix-webhook
-ADD . .
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go get -d -v ./...
+COPY . .
+
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o alertmanager-zabbix-webhook .
 
 # Run
