@@ -9,3 +9,19 @@ You can create your Zabbix Hosts/Items/Triggers yourself or you can use https://
 
 Have a look at the default [config.yaml](https://github.com/gmauleon/alertmanager-zabbix-webhook/blob/master/config.yaml) for the possible parameters  
 Kubernetes deployment manifests are in contrib/kubernetes
+
+## Save and Load
+
+```
+# Save
+docker save alertmanager-zabbix-webhook:latest | gzip > alertmanager-zabbix-webhook_docker.tar.gz
+# Load
+gunzip -c alertmanager-zabbix-webhook_docker.tar.gz | docker load
+```
+
+## Extarct and gzip bynary
+
+```docker create --name temp alertmanager-zabbix-webhook:latest
+docker cp temp:/usr/bin/alertmanager-zabbix-webhook .
+docker rm temp
+tar -czf alertmanager-zabbix-webhook.tar.gz alertmanager-zabbix-webhook```
